@@ -1,1 +1,29 @@
-/* You can add global styles to this file, and also import other style files */
+$primary: #808080;
+$secondary: #b3afaf;
+$text-black: #343a40;
+
+html, body {
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+.bg-primary {
+  background-color: $primary;
+}
+.bg-secondary {
+  background-color: $secondary;
+}
+.text-black {
+  color: $text-black;
+}
+.h100 {
+  height: 100% !important;
+}
+.w100 {
+  width: 100% !important;
+}
+.mv5 {
+  margin: 5px 0px;
+}

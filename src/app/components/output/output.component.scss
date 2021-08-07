@@ -1,0 +1,13 @@
+.output {
+  width: 100%;
+  border: 1px solid #808080;
+  min-height: 22px;
+  background-color: #ffffff;
+  box-sizing: border-box;
+  word-break: break-word;
+}
+@media only screen and(max-width: 640px){
+  .output {
+    min-height: 30px;
+  }
+}

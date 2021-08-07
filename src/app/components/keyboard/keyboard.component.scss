@@ -1,0 +1,22 @@
+.grid {
+  display: grid;
+  grid-column-gap: 5px;
+  grid-row-gap: 5px;
+  height: 100%;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr 1fr;
+  .grid-item {
+    user-select: none;
+    cursor: pointer;
+    display: table;
+    text-align: center;
+    background-color: #b3afaf;
+    span {
+      display: table-cell;
+      vertical-align: middle;
+    }
+  }
+  .grid-item:active {
+    background-color: #989393;
+  }
+}

@@ -1,0 +1,6 @@
+<div class="container bg-primary">
+  <div class="header">
+    <output [inputValue]="input$" [outputValue]="output$"></output>
+  </div>
+  <keyboard class="h100 mv5" (remove)="removeInput()" (add)="addInput($event)"></keyboard>
+</div>
