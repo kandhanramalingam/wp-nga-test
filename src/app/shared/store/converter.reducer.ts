@@ -1,4 +1,4 @@
-import {createReducer, on} from '@ngrx/store';
+import {Action, ActionReducer, createReducer, on} from '@ngrx/store';
 import * as converterActions from './converter.actions';
 
 export const converterKey = 'converter';
@@ -28,3 +28,6 @@ export const userInputReducer = createReducer(
     return {...state, output: action.data};
   })
 );
+export function reducer(state: State, action: Action): any {
+  return userInputReducer(state, action);
+}
