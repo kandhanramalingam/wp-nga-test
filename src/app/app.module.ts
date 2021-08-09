@@ -12,6 +12,7 @@ import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 import {userInputReducer} from './shared/store/converter.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {ConverterEffects} from './shared/store/converter.effects';
+import {FacadeService} from './shared/services/facade.service';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import {ConverterEffects} from './shared/store/converter.effects';
       StoreDevtoolsModule.instrument({maxAge: 25}),
       EffectsModule.forRoot([ConverterEffects])
     ],
-  providers: [],
+  providers: [FacadeService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

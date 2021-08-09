@@ -9,13 +9,14 @@ import * as converterActions from './converter.actions';
 import {TestScheduler} from 'rxjs/testing';
 import {Action} from '@ngrx/store';
 import {selectConvertedOutput, selectUserInput} from './converter.selectors';
+import {FacadeService} from '../services/facade.service';
 
 describe('Converter Effect', () => {
   const initialState = {input: '', output: ''};
   let effects: ConverterEffects;
   let actions: Observable<Action>;
   let store: MockStore<any>;
-  const converterService = createSpyObj('ConverterService', ['convertUserInput']);
+  const facadeService = createSpyObj('FacadeService', ['convertUserInput']);
   let testScheduler;
 
   beforeEach(() => {
@@ -36,7 +37,7 @@ describe('Converter Effect', () => {
           ]
         }),
         provideMockActions(() => actions),
-        {provide: ConverterService, useValue: converterService}
+        {provide: FacadeService, useValue: facadeService}
       ]
     });
     effects = TestBed.inject(ConverterEffects);
@@ -57,7 +58,7 @@ describe('Converter Effect', () => {
       testScheduler.run(({ hot, cold, expectObservable }) => {
         actions = hot('-a', { a: action });
         const response = cold('-b|', { b: 'A' });
-        converterService.convertUserInput.and.returnValue(response);
+        facadeService.convertUserInput.and.returnValue(response);
         expectObservable(effects.convEffect$).toBe('--c', { c: outcome });
       });
     });
