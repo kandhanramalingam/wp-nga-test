@@ -3,12 +3,10 @@ import {ConverterComponent} from './converter.component';
 import {Store, StoreModule} from '@ngrx/store';
 import {KeyboardComponent} from '../../components/keyboard/keyboard.component';
 import {OutputComponent} from '../../components/output/output.component';
-import {selectConvertedOutput, selectUserInput} from '../../shared/store/converter.selectors';
 import {userInputReducer} from '../../shared/store/converter.reducer';
 import {EffectsModule} from '@ngrx/effects';
 import {ConverterEffects} from '../../shared/store/converter.effects';
 import {FacadeService} from '../../shared/services/facade.service';
-import {provideMockStore} from '@ngrx/store/testing';
 
 describe('Converter Component', () => {
   let spectator: Spectator<ConverterComponent>;
@@ -25,19 +23,6 @@ describe('Converter Component', () => {
     ],
     providers: [
       FacadeService,
-      provideMockStore({
-        initialState,
-        selectors: [
-          {
-            selector: selectUserInput,
-            value: ''
-          },
-          {
-            selector: selectConvertedOutput,
-            value: ''
-          }
-        ]
-      })
     ]
   });
   beforeEach(() => {
@@ -46,9 +31,23 @@ describe('Converter Component', () => {
   it('Check for Keyboard', () => {
     expect(spectator.query('.grid-item')).toExist();
   });
-  it('Check keyboard', () => {
-    const elm = spectator.query('.grid-item') as HTMLElement;
-    spectator.click(elm);
-    spectator.detectChanges();
+  it('Check output contains Specific Character', () => {
+    const keys = spectator.queryAll('.grid-item') as HTMLElement[];
+    const sepratorIndex = 9;
+    const removeIndex = 11;
+    keys.forEach((key, index) => {
+      if (index === sepratorIndex || index === removeIndex) {
+        return;
+      }
+      spectator.click(key);
+      spectator.click(keys[sepratorIndex]);
+    });
+    const textBox = spectator.queryAll('.txt-box');
+    expect(textBox[0]).toHaveText('1#2#3#4#5#6#7#8#9#0#');
+    expect(textBox[1]).toHaveText('BCDEFGHIJA');
+    spectator.click(keys[11]);
+    spectator.click(keys[11]);
+    expect(textBox[0]).toHaveText('1#2#3#4#5#6#7#8#9#');
+    expect(textBox[1]).toHaveText('BCDEFGHIJ');
   });
 });
