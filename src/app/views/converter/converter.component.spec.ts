@@ -10,10 +10,6 @@ import {FacadeService} from '../../shared/services/facade.service';
 
 describe('Converter Component', () => {
   let spectator: Spectator<ConverterComponent>;
-  const initialState = {
-    input: '',
-    output: ''
-  };
   const createComponent = createComponentFactory({
     component: ConverterComponent,
     declarations: [KeyboardComponent, OutputComponent],

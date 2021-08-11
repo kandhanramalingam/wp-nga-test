@@ -1,8 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {select, Store} from '@ngrx/store';
-import {AppState} from '../../shared/store';
-import * as converterSeletors from '../../shared/store/converter.selectors';
 
 @Component({
   selector: 'output',
