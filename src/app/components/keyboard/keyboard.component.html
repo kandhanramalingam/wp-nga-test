@@ -1,5 +1,5 @@
 <div class="grid">
-  <div class="grid-item" *ngFor="let key of keys" (click)="key.action(key.value)">
+  <div class="grid-item" *ngFor="let key of keys" (click)="onKeyPressed(key)">
     <span *ngIf="key.type === 'txt'; else html">{{ key.label }}</span>
     <ng-template #html><span [innerHTML]="key.label"></span></ng-template>
   </div>

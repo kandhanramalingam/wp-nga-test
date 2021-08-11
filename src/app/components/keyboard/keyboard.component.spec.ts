@@ -3,6 +3,7 @@ import {KeyboardComponent} from './keyboard.component';
 import {provideMockStore} from '@ngrx/store/testing';
 import {Store} from '@ngrx/store';
 import {of} from 'rxjs';
+import {Key} from '../../shared/models/common';
 
 describe('KeyBoard Component', () => {
   let spectator: Spectator<KeyboardComponent>;
@@ -23,13 +24,15 @@ describe('KeyBoard Component', () => {
   });
   it('Check UserInput Emitor', () => {
     let output;
+    const sampleKey: Key = { value: '1', type: 'txt', label: '1'};
     spectator.output('add').subscribe(result => (output = result));
-    spectator.component.addValue('a');
-    expect(output).toEqual('a');
+    spectator.component.onKeyPressed(sampleKey);
+    expect(output).toEqual('1');
   });
   it('Check remove has been called', () => {
-    const removeValueSpy = spyOn(spectator.component, 'removeValue');
-    spectator.component.removeValue();
+    const removeValueSpy = spyOn(spectator.component, 'onKeyPressed');
+    const sampleKey: Key = { value: '', type: 'html', label: '&#8592;'};
+    spectator.component.onKeyPressed(sampleKey);
     expect(removeValueSpy).toHaveBeenCalledTimes(1);
   });
 });

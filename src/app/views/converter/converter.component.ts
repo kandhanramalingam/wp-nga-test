@@ -1,10 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {select, Store} from '@ngrx/store';
-import {AppState} from '../../shared/store';
 import {Observable} from 'rxjs';
-import {selectUserInput} from '../../shared/store/converter.selectors';
-import * as converterActions from '../../shared/store/converter.actions';
-import * as converterSeletors from '../../shared/store/converter.selectors';
+import {FacadeService} from '../../shared/services/facade.service';
 
 @Component({
   selector: 'app-converter',
@@ -14,17 +10,17 @@ import * as converterSeletors from '../../shared/store/converter.selectors';
 export class ConverterComponent implements OnInit {
   input$: Observable<string>;
   output$: Observable<string>;
-  constructor(private store: Store<AppState>) { }
+  constructor(private facadeService: FacadeService) { }
 
   ngOnInit(): void {
-    this.input$ = this.store.pipe(select(converterSeletors.selectUserInput));
-    this.output$ = this.store.pipe(select(converterSeletors.selectConvertedOutput));
+    this.input$ = this.facadeService.userInput$;
+    this.output$ = this.facadeService.transferedOutput$;
   }
 
   addInput(key): void {
-    this.store.dispatch(converterActions.addUserInput({data: key}));
+    this.facadeService.addInput(key);
   }
   removeInput(): void {
-    this.store.dispatch(converterActions.removeUserInput());
+    this.facadeService.removeInput();
   }
 }

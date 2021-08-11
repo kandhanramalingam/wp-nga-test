@@ -1,7 +1,7 @@
 import {Component, OnInit, Output, EventEmitter} from '@angular/core';
 import {AppState} from '../../shared/store';
 import {Store} from '@ngrx/store';
-import {Common} from '../../shared/models/common';
+import {Key} from '../../shared/models/common';
 
 @Component({
   selector: 'keyboard',
@@ -12,30 +12,29 @@ export class KeyboardComponent implements OnInit {
 
   @Output() add = new EventEmitter<string>();
   @Output() remove = new EventEmitter();
-  keys: Common[] = [
-    {label: '1', type: 'txt', action: this.addValue.bind(this), value: '1'},
-    {label: '2', type: 'txt', action: this.addValue.bind(this), value: '2'},
-    {label: '3', type: 'txt', action: this.addValue.bind(this), value: '3'},
-    {label: '4', type: 'txt', action: this.addValue.bind(this), value: '4'},
-    {label: '5', type: 'txt', action: this.addValue.bind(this), value: '5'},
-    {label: '6', type: 'txt', action: this.addValue.bind(this), value: '6'},
-    {label: '7', type: 'txt', action: this.addValue.bind(this), value: '7'},
-    {label: '8', type: 'txt', action: this.addValue.bind(this), value: '8'},
-    {label: '9', type: 'txt', action: this.addValue.bind(this), value: '9'},
-    {label: '#', type: 'txt', action: this.addValue.bind(this), value: '#'},
-    {label: '0', type: 'txt', action: this.addValue.bind(this), value: '0'},
-    {label: '&#8592;', type: 'html', action: this.removeValue.bind(this), value: ''}
+  keys: Key[] = [
+    {label: '1', type: 'txt', value: '1'},
+    {label: '2', type: 'txt', value: '2'},
+    {label: '3', type: 'txt', value: '3'},
+    {label: '4', type: 'txt', value: '4'},
+    {label: '5', type: 'txt', value: '5'},
+    {label: '6', type: 'txt', value: '6'},
+    {label: '7', type: 'txt', value: '7'},
+    {label: '8', type: 'txt', value: '8'},
+    {label: '9', type: 'txt', value: '9'},
+    {label: '#', type: 'txt', value: '#'},
+    {label: '0', type: 'txt', value: '0'},
+    {label: '&#8592;', type: 'html', value: ''}
   ];
-  constructor(
-    private store: Store<AppState>
-  ) {}
+  constructor() {}
 
   ngOnInit(): void {
   }
-  addValue(val: string): void {
-    this.add.emit(val);
-  }
-  removeValue(): void {
+  onKeyPressed(key: Key): void {
+    if (key.value) {
+      this.add.emit(key.value);
+      return;
+    }
     this.remove.emit();
   }
 }
